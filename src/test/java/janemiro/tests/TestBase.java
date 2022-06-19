@@ -1,10 +1,6 @@
 package janemiro.tests;
 
 import com.codeborne.selenide.Configuration;
-import janemiro.config.Project;
-import janemiro.helpers.AllureAttachments;
-import janemiro.helpers.DriverSettings;
-import janemiro.helpers.DriverUtils;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.junit5.AllureJunit5;
@@ -23,20 +19,12 @@ public class TestBase {
     @BeforeAll
     static void setUp() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
-        DriverSettings.configure();
-
         Configuration.startMaximized = true;
     }
 
 
     @AfterEach
     public void addAttachments() {
-        String sessionId = DriverUtils.getSessionId();
-
-        AllureAttachments.addScreenshotAs("Last screenshot");
-        AllureAttachments.addPageSource();
-        AllureAttachments.addBrowserConsoleLogs();
-        AllureAttachments.addVideo(sessionId);
 
         Selenide.closeWebDriver();
 
